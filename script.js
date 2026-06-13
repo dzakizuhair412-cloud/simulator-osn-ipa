@@ -1,6 +1,6 @@
 let currentQuestions=[];
 let timer;
-let timeLeft=5400;
+let timeLeft=3600;
 
 function startExam(packageNumber){
 
