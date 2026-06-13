@@ -1,39 +1,26 @@
-let currentPaket = "";
-let userAnswers = [];
+// 1. Inisialisasi variabel untuk menyimpan paket yang dipilih
+let currentPaket = null;
 
-function startQuiz(paket) {
-  currentPaket = paket;
-  const quizDiv = document.getElementById("quiz");
-  quizDiv.innerHTML = "";
-  userAnswers = [];
-
-  questions[paket].forEach((q, i) => {
-    const div = document.createElement("div");
-    div.className = "question";
-
-    div.innerHTML = `
-      <p><b>${i + 1}. (${q.subject})</b> ${q.q}</p>
-      ${q.a.map(opt => `
-        <label class="option">
-          <input type="radio" name="q${i}" value="${opt}">
-          ${opt}
-        </label>
-      `).join("")}
-    `;
-
-    quizDiv.appendChild(div);
-  });
+// 2. Fungsi yang dijalankan saat sebuah paket dipilih
+function pilihPaket(nomorPaket) {
+    currentPaket = nomorPaket;
+    console.log("Paket yang dipilih: " + currentPaket);
+    
+    // Di sini Anda bisa menambahkan fungsi untuk memuat soal, contoh:
+    // muatSoal(currentPaket);
+    
+    // Opsional: Menandai tombol yang sedang aktif/dipilih secara visual
+    tampilkanTombolAktif(nomorPaket);
 }
 
-function submitQuiz() {
-  const data = questions[currentPaket];
-
-  let score = 0;
-  let bio = {c:0,t:0};
-  let fis = {c:0,t:0};
-  let kim = {c:0,t:0};
-
-  data.forEach((q, i) => {
+// 3. Menghubungkan fungsi ke tombol-tombol di HTML (Event Listener)
+// Pastikan ID atau Class tombol di HTML sesuai
+document.querySelectorAll('.btn-paket').forEach((tombol, indeks) => {
+    tombol.addEventListener('click', () => {
+        // Indeks dimulai dari 0, jadi paket 1 adalah indeks 0 + 1
+        pilihPaket(indeks + 1);
+    });
+});
     const selected = document.querySelector(`input[name="q${i}"]:checked`);
     const answer = selected ? selected.value : "";
 
