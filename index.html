@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulator OSN IPA SMP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>🏆 Simulator OSN IPA SMP</h1>
+    <p>40 Soal | 90 Menit</p>
+</header>
+
+<div class="container">
+
+    <div id="home">
+        <h2>Pilih Paket Soal</h2>
+
+        <div class="packages">
+            <button onclick="startExam(1)">Paket 1</button>
+            <button onclick="startExam(2)">Paket 2</button>
+            <button onclick="startExam(3)">Paket 3</button>
+            <button onclick="startExam(4)">Paket 4</button>
+            <button onclick="startExam(5)">Paket 5</button>
+            <button onclick="startExam(6)">Paket 6</button>
+            <button onclick="startExam(7)">Paket 7</button>
+            <button onclick="startExam(8)">Paket 8</button>
+            <button onclick="startExam(9)">Paket 9</button>
+            <button onclick="startExam(10)">Paket 10</button>
+        </div>
+    </div>
+
+    <div id="exam" style="display:none">
+        <div class="topbar">
+            <span id="timer">90:00</span>
+        </div>
+
+        <div id="questionContainer"></div>
+
+        <button class="submit-btn" onclick="finishExam()">
+            Selesai
+        </button>
+    </div>
+
+    <div id="result" style="display:none"></div>
+
+</div>
+
+<script src="questions.js"></script>
+<script src="script.js"></script>
+
+</body>
+  </html>
