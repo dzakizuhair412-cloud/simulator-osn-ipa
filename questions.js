@@ -1,42 +1,49 @@
-const questionBank = {
+// questions.js
 
-1:[
+const questions = {
+  paket1: [
+    // ===== BIOLOGI (10 soal) =====
+    { id: 1, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 2, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 3, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 4, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 5, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 6, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 7, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 8, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 9, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 10, subject: "Biologi", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
 
-{
-field:"Biologi",
-question:"Organel tempat respirasi sel adalah...",
-options:[
-"Ribosom",
-"Lisosom",
-"Mitokondria",
-"Badan Golgi"
-],
-answer:2
-},
+    // ===== FISIKA (8 soal) =====
+    { id: 11, subject: "Fisika", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 12, subject: "Fisika", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 13, subject: "Fisika", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 14, subject: "Fisika", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 15, subject: "Fisika", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 16, subject: "Fisika", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 17, subject: "Fisika", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 18, subject: "Fisika", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
 
-{
-field:"Fisika",
-question:"Sebuah benda bermassa 2 kg dipercepat 3 m/s². Gaya yang bekerja adalah...",
-options:[
-"3 N",
-"5 N",
-"6 N",
-"9 N"
-],
-answer:2
-},
+    // ===== KIMIA (2 soal) =====
+    { id: 19, subject: "Kimia", question: "", options: ["A", "B", "C", "D", "E"], answer: "" },
+    { id: 20, subject: "Kimia", question: "", options: ["A", "B", "C", "D", "E"], answer: "" }
+  ],
 
-{
-field:"Kimia",
-question:"Nomor atom karbon adalah...",
-options:[
-"4",
-"6",
-"8",
-"12"
-],
-answer:1
-}
+  paket2: [
+    // copy struktur sama seperti paket1
+  ],
 
-]
+  paket3: [
+    // copy struktur sama seperti paket1
+  ],
+
+  paket4: [
+    // copy struktur sama seperti paket1
+  ],
+
+  paket5: [
+    // copy struktur sama seperti paket1
+  ]
 };
+
+export default questions;
