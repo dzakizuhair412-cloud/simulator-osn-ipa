@@ -1,33 +1,62 @@
-// 1. Inisialisasi variabel untuk menyimpan paket yang dipilih
 let currentPaket = null;
 
-// 2. Fungsi yang dijalankan saat sebuah paket dipilih
-function pilihPaket(nomorPaket) {
-    currentPaket = nomorPaket;
-    console.log("Paket yang dipilih: " + currentPaket);
-    
-    // Di sini Anda bisa menambahkan fungsi untuk memuat soal, contoh:
-    // muatSoal(currentPaket);
-    
-    // Opsional: Menandai tombol yang sedang aktif/dipilih secara visual
-    tampilkanTombolAktif(nomorPaket);
+function startQuiz(paket) {
+  currentPaket = paket;
+
+  const quizDiv = document.getElementById("quiz");
+  quizDiv.innerHTML = "";
+
+  const data = questions[paket] || [];
+
+  if (data.length === 0) {
+    quizDiv.innerHTML = "<p>Soal belum tersedia untuk paket ini.</p>";
+    return;
+  }
+
+  data.forEach((q, i) => {
+    const div = document.createElement("div");
+    div.className = "question";
+
+    div.innerHTML = `
+      <p><b>${i + 1}. (${q.subject})</b> ${q.q}</p>
+      ${q.a.map(opt => `
+        <label class="option">
+          <input type="radio" name="q${i}" value="${opt}">
+          ${opt}
+        </label>
+      `).join("")}
+    `;
+
+    quizDiv.appendChild(div);
+  });
+
+  document.getElementById("result").innerHTML = "";
 }
 
-// 3. Menghubungkan fungsi ke tombol-tombol di HTML (Event Listener)
-// Pastikan ID atau Class tombol di HTML sesuai
-document.querySelectorAll('.btn-paket').forEach((tombol, indeks) => {
-    tombol.addEventListener('click', () => {
-        // Indeks dimulai dari 0, jadi paket 1 adalah indeks 0 + 1
-        pilihPaket(indeks + 1);
-    });
-});
+function submitQuiz() {
+  if (!currentPaket) {
+    alert("Pilih paket dulu!");
+    return;
+  }
+
+  const data = questions[currentPaket] || [];
+
+  let score = 0;
+
+  let bio = { c: 0, t: 0 };
+  let fis = { c: 0, t: 0 };
+  let kim = { c: 0, t: 0 };
+
+  data.forEach((q, i) => {
     const selected = document.querySelector(`input[name="q${i}"]:checked`);
     const answer = selected ? selected.value : "";
 
+    // hitung total
     if (q.subject === "Biologi") bio.t++;
     if (q.subject === "Fisika") fis.t++;
     if (q.subject === "Kimia") kim.t++;
 
+    // cek benar
     if (answer === q.correct) {
       score++;
 
@@ -35,6 +64,20 @@ document.querySelectorAll('.btn-paket').forEach((tombol, indeks) => {
       if (q.subject === "Fisika") fis.c++;
       if (q.subject === "Kimia") kim.c++;
     }
+  });
+
+  const bioPct = bio.t ? Math.round((bio.c / bio.t) * 100) : 0;
+  const fisPct = fis.t ? Math.round((fis.c / fis.t) * 100) : 0;
+  const kimPct = kim.t ? Math.round((kim.c / kim.t) * 100) : 0;
+
+  document.getElementById("result").innerHTML = `
+    <h2>Hasil Quiz</h2>
+    <p><b>Skor:</b> ${score} / ${data.length}</p>
+    <p>Biologi: ${bio.c}/${bio.t} (${bioPct}%)</p>
+    <p>Fisika: ${fis.c}/${fis.t} (${fisPct}%)</p>
+    <p>Kimia: ${kim.c}/${kim.t} (${kimPct}%)</p>
+  `;
+        }    }
   });
 
   const result = document.getElementById("result");
