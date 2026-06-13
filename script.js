@@ -1,40 +1,65 @@
-let currentQuestions=[];
-let timer;
-let timeLeft=3600;
+let currentPaket = "";
+let userAnswers = [];
 
-function startExam(packageNumber){
+function startQuiz(paket) {
+  currentPaket = paket;
+  const quizDiv = document.getElementById("quiz");
+  quizDiv.innerHTML = "";
+  userAnswers = [];
 
-    document.getElementById("home").style.display="none";
-    document.getElementById("exam").style.display="block";
+  questions[paket].forEach((q, i) => {
+    const div = document.createElement("div");
+    div.className = "question";
 
-    currentQuestions = questionBank[packageNumber];
+    div.innerHTML = `
+      <p><b>${i + 1}. (${q.subject})</b> ${q.q}</p>
+      ${q.a.map(opt => `
+        <label class="option">
+          <input type="radio" name="q${i}" value="${opt}">
+          ${opt}
+        </label>
+      `).join("")}
+    `;
 
-    renderQuestions();
-
-    timer=setInterval(()=>{
-        timeLeft--;
-
-        let min=Math.floor(timeLeft/60);
-        let sec=timeLeft%60;
-
-        document.getElementById("timer").innerHTML=
-        `${min}:${sec.toString().padStart(2,"0")}`;
-
-        if(timeLeft<=0){
-            finishExam();
-        }
-
-    },1000);
-
+    quizDiv.appendChild(div);
+  });
 }
 
-function renderQuestions(){
+function submitQuiz() {
+  const data = questions[currentPaket];
 
-    const container=document.getElementById("questionContainer");
+  let score = 0;
+  let bio = {c:0,t:0};
+  let fis = {c:0,t:0};
+  let kim = {c:0,t:0};
 
-    container.innerHTML="";
+  data.forEach((q, i) => {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    const answer = selected ? selected.value : "";
 
-    currentQuestions.forEach((q,index)=>{
+    if (q.subject === "Biologi") bio.t++;
+    if (q.subject === "Fisika") fis.t++;
+    if (q.subject === "Kimia") kim.t++;
+
+    if (answer === q.correct) {
+      score++;
+
+      if (q.subject === "Biologi") bio.c++;
+      if (q.subject === "Fisika") fis.c++;
+      if (q.subject === "Kimia") kim.c++;
+    }
+  });
+
+  const result = document.getElementById("result");
+
+  result.innerHTML = `
+    <h2>Hasil Quiz</h2>
+    <p>Skor: ${score} / 20</p>
+    <p>Biologi: ${bio.c}/${bio.t} (${Math.round(bio.c/bio.t*100)}%)</p>
+    <p>Fisika: ${fis.c}/${fis.t} (${Math.round(fis.c/fis.t*100)}%)</p>
+    <p>Kimia: ${kim.c}/${kim.t} (${Math.round(kim.c/kim.t*100)}%)</p>
+  `;
+}    currentQuestions.forEach((q,index)=>{
 
         let html=`
         <div class="question">
